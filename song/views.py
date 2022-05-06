@@ -10,9 +10,9 @@ def song_list(request):
     if request.method == 'GET':
         song = Song.objects.all()
         serializer = SongSerializer(song, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     elif request.method == 'POST':
         serializer = SongSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
